@@ -1,22 +1,40 @@
 ﻿@{
-    ViewBag.Title = "GitHub Search";
+    ViewBag.Title = "Name Search";
 }
 
-<div class="jumbotron">
-    <h1 style="text-align:center">GitHub Search</h1>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-    </div>
-    <div class="col-md-4">
-        <form>
-            <div class="form-group">
-                <label for="nameInput">Start your search</label>
-                <input type="text" class="form-control" id="nameInput" placeholder="Enter a name to find on GitHub.">
+<div id="GitHubSearch">
+    <div class="search-container">
+        <div class="row">
+            <div class="col-3">
             </div>
-        </form>
+            <div class="col-6">
+                <h2>Search GitHub by name</h2>
+            </div>
+            <div class="col-3">
+            </div>
+        </div>
+        <div class="row search-section" style="margin-top: 10px;">
+            <form class="form-inline">
+                <div class="form-group mb-4">
+                    <input type="text" class="form-control" id="nameInput" placeholder="Enter a name">
+                </div>
+                <button type="button" class="btn btn-primary mb-2 search-button">Search</button>
+            </form>
+        </div>
     </div>
-    <div class="col-md-4">
+
+    <div class="results-container hidden">
+        <div class="row">
+            <div class="col-3">
+            </div>
+            <div class="col-6">
+                <h2>Results</h2>
+            </div>
+            <div class="col-3">
+            </div>
+        </div>
+        <div class="results">
+
+        </div>
     </div>
 </div>

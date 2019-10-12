@@ -1,0 +1,43 @@
+﻿@model GitHubSearch.ResultsModel
+
+@{
+    <div class="row user-section">
+        <div class="col-md-12">
+            <h3>GitHub User</h3>
+        </div>
+    </div>
+    <div class="row user-section">
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-4">
+            @Model.Avatar
+        </div>
+        <div class="col-md-4">
+            Username: <span>@Model.Username</span><br />
+            Location: <span>@Model.Location</span>
+        </div>
+        <div class="col-md-2">
+        </div>
+    </div>
+    <hr />
+    <div class="row user-section">
+        <div class="col-md-12">
+            <h3>Repos</h3>
+        </div>
+    </div>
+    foreach (var repo in Model.Repos)
+    {
+        <div class="row user-section">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-4">
+                Name: <span>@repo.Name</span>
+            </div>
+            <div class="col-md-4">
+                Star Count: <span>@repo.StarGazerCount</span>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+    }
+}

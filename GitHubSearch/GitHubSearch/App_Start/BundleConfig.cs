@@ -22,6 +22,11 @@ namespace GitHubSearch
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/vendors/bootstrap.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/site").Include(
+                "~/Scripts/ajax.js",
+                "~/Scripts/validationResult.js",
+                "~/Scripts/site.js"));
+
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/vendors/bootstrap.css",
                       "~/Content/site.css"));
