@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
 namespace GitHubSearch.Controllers
 {
     public class SearchController : Controller
     {
+        #region Public Methods
         public ActionResult Index()
         {
             return View();
@@ -16,29 +13,20 @@ namespace GitHubSearch.Controllers
         [HttpPost]
         public ActionResult SearchName(string name)
         {
-            // validate name
-
-            var validationResults = new List<ValidationResult>();
-            var success = true;
+            var validationResults = new ValidationResultList();
+            var success = false;
             var view = default(string);
 
-            // api call to GitHub Search
-            // handle results
-
-            var viewModel = new ResultsModel
+            if(ValidateName(name, validationResults))
             {
-                Username = name,
-                Avatar = "https://avatars0.githubusercontent.com/u/53115751?s=460&v=4",
-                Location = "Newcastle upon Tyne",
-                Repos = new List<GitHubRepo> {new GitHubRepo
+                var viewModel = GitHubService.SearchByName(name, validationResults);
+
+                if (!ValidationResults.AnyErrorOrInvalid(validationResults))
                 {
-                    Name = "Test repo",
-                    StarGazerCount = 5,
-
-                }}
-            };
-
-            view = RazorViewToString.RenderRazorViewToString(this, "~/Views/Results/_results.cshtml", viewModel);
+                    success = true;
+                    view = RazorViewToString.RenderRazorViewToString(this, "~/Views/Results/_results.cshtml", viewModel);
+                }
+            }
 
             return Json(new
             {
@@ -47,5 +35,24 @@ namespace GitHubSearch.Controllers
                 validationResults
             });
         }
+        #endregion
+
+        #region Private Helpers
+        private bool ValidateName(string name, IValidationResultList validationResults)
+        {
+            if (string.IsNullOrEmpty(name))
+            {
+                validationResults.Add(new ValidationResult
+                {
+                    Level = ValidationLevel.Invalid,
+                    Message = "Name must be valid"
+                });
+
+                return false;
+            }
+
+            return true;
+        }
+        #endregion
     }
 }

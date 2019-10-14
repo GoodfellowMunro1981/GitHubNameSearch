@@ -1,4 +1,4 @@
-﻿@model GitHubSearch.ResultsModel
+﻿@model GitHubSearch.GitHubUser
 
 @{
     <div class="row user-section">
@@ -10,11 +10,11 @@
         <div class="col-md-2">
         </div>
         <div class="col-md-4">
-            @Model.Avatar
+            <img alt="" width="260" height="260" class="" src="@Model.AvatarUrl">
         </div>
         <div class="col-md-4">
-            Username: <span>@Model.Username</span><br />
-            Location: <span>@Model.Location</span>
+            Username: <b>@Model.Name</b><br />
+            Location: <b>@Model.Location</b>
         </div>
         <div class="col-md-2">
         </div>
@@ -31,10 +31,19 @@
             <div class="col-md-2">
             </div>
             <div class="col-md-4">
-                Name: <span>@repo.Name</span>
+                Name: <b>@repo.Name</b>
             </div>
             <div class="col-md-4">
-                Star Count: <span>@repo.StarGazerCount</span>
+                Star Count: <b>@repo.StargazersCount</b>
+            </div>
+            <div class="col-md-2">
+            </div>
+        </div>
+        <div class="row user-section" style="padding-bottom: 10px">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-8">
+                Url: <a href="@repo.Url" target="_blank">@repo.Url</a>
             </div>
             <div class="col-md-2">
             </div>

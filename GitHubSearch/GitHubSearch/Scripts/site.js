@@ -72,6 +72,23 @@ var GitHubSearch;
             });
         };
         Search.prototype._validateInput = function (name) {
+            if (name == null) {
+                //add message
+                return false;
+            }
+            if (name.length == 0) {
+                //add message
+                return false;
+            }
+            // validate using REGEX
+            // Type: RegExp (/^[a-z\d](?:[a-z\d]|-(?=[a-z\d])){0,38}$/i)
+            // only alphanumeric characters or hyphens
+            // cannot have multiple consecutive hyphens
+            // name can't start or end with a hypen
+            // Maximum is 39 characters
+            if (name.length > 38) {
+                return false;
+            }
             return true;
         };
         Search.prototype._searchName = function (name) {
