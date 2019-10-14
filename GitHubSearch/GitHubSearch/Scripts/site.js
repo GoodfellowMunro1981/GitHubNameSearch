@@ -40,15 +40,6 @@ var GitHubSearch;
     $(document).ready(function () {
         search = new Search();
     });
-    // move this out!!
-    function messageBox(message) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/];
-            });
-        });
-    }
-    GitHubSearch.messageBox = messageBox;
     var Search = /** @class */ (function () {
         function Search() {
             this._init();
@@ -56,11 +47,21 @@ var GitHubSearch;
         Search.prototype._init = function () {
             this._element = $('#GitHubSearch');
             this._nameInput = $('#nameInput');
+            this._dialog = $("#dialog");
             this._searchButton = this._element.find('.search-button');
             this._resultContainer = this._element.find('.results-container');
             this._results = this._element.find('.results');
             this._ajax = new GitHubSearch.Ajax();
             this._setSearchEvents();
+            // requires adding JQuery UI
+            this._dialog.dialog({
+                autoOpen: false, modal: true, show: "blind", hide: "blind"
+            });
+        };
+        Search.prototype._messageBox = function (message) {
+            // requires adding JQuery UI
+            this._dialog.find('.dialog-message').text(message);
+            this._dialog.dialog("open");
         };
         Search.prototype._setSearchEvents = function () {
             var _this = this;
@@ -73,11 +74,11 @@ var GitHubSearch;
         };
         Search.prototype._validateInput = function (name) {
             if (name == null) {
-                //add message
+                this._messageBox("Name cannot be empty");
                 return false;
             }
             if (name.length == 0) {
-                //add message
+                this._messageBox("Name cannot be empty");
                 return false;
             }
             // validate using REGEX
@@ -87,6 +88,7 @@ var GitHubSearch;
             // name can't start or end with a hypen
             // Maximum is 39 characters
             if (name.length > 38) {
+                this._messageBox("Name must be less tha 39 characters");
                 return false;
             }
             return true;
@@ -107,12 +109,11 @@ var GitHubSearch;
                         case 1:
                             response = _a.sent();
                             if (GitHubSearch.validationResultsAnyErrorOrInvalid(response.validationResults)) {
-                                // notify user
+                                // notify user foreach validationResult in response.validationResults
                                 // messageBox("message")
                             }
                             if (response.success) {
                                 this._showResults(response.view);
-                                // show results
                             }
                             return [2 /*return*/];
                     }
